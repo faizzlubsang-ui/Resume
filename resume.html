@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fais Lubsang — Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0e0e10;
+    --bg-raised: #17171a;
+    --rule: #2b2b2f;
+    --ink: #ece8e0;
+    --ink-dim: #a7a29a;
+    --amber: #e3a857;
+    --teal: #4f7570;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{ animation: fadeIn .8s ease-out both; }
+  }
+  @keyframes fadeIn{
+    from{ opacity: 0; transform: translateY(8px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  a{ color: var(--amber); text-decoration: none; }
+  a:hover, a:focus-visible{ text-decoration: underline; }
+  a:focus-visible, button:focus-visible{ outline: 2px solid var(--amber); outline-offset: 3px; }
+
+  /* --- film-strip perforation rail --- */
+  .sprocket-rail{
+    position: fixed;
+    top: 0; bottom: 0; left: 0;
+    width: 22px;
+    background: repeating-linear-gradient(
+      var(--bg-raised),
+      var(--bg-raised) 14px,
+      var(--bg) 14px,
+      var(--bg) 28px
+    );
+    border-right: 1px solid var(--rule);
+    z-index: 5;
+  }
+  .sprocket-rail::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 11px 7px, var(--bg) 3.5px, transparent 3.6px);
+    background-size: 22px 28px;
+  }
+  @media (max-width: 640px){
+    .sprocket-rail{ width: 14px; }
+    .sprocket-rail::before{ background-image: radial-gradient(circle at 7px 7px, var(--bg) 2.4px, transparent 2.5px); background-size: 14px 22px; }
+    .sprocket-rail{ background-size: auto; }
+  }
+
+  .page{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 72px 32px 96px 64px;
+  }
+  @media (max-width: 640px){
+    .page{ padding: 48px 20px 72px 40px; }
+  }
+
+  /* --- header --- */
+  header{ margin-bottom: 56px; }
+
+  .name{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+
+  .role{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.15rem;
+    color: var(--amber);
+    margin: 0 0 24px;
+  }
+
+  .contact{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 22px;
+    row-gap: 8px;
+    font-size: 0.92rem;
+    color: var(--ink-dim);
+  }
+  .contact span{ white-space: nowrap; }
+
+  /* --- section structure --- */
+  section{
+    margin-bottom: 52px;
+  }
+
+  .section-head{
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 18px;
+    align-items: baseline;
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 10px;
+  }
+  @media (max-width: 560px){
+    .section-head{ grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  .section-head h2{
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+    margin: 0;
+  }
+
+  .section-head .lede{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: var(--ink);
+  }
+
+  .profile-text{
+    max-width: 62ch;
+    color: var(--ink);
+    font-size: 1.02rem;
+  }
+
+  /* --- timeline entries (education / experience) --- */
+  .entry{
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 28px;
+    border-left: 1px solid var(--rule);
+  }
+  .entry:last-child{ margin-bottom: 0; }
+  .entry::before{
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: 6px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  .entry-title{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.12rem;
+    color: var(--ink);
+    margin: 0 0 2px;
+  }
+  .entry-org{ color: var(--amber); font-weight: 500; }
+
+  .entry-meta{
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    margin-bottom: 10px;
+  }
+
+  ul.bullets{
+    margin: 0;
+    padding-left: 18px;
+  }
+  ul.bullets li{
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  ul.bullets li::marker{ color: var(--amber); }
+
+  /* --- project cards --- */
+  .project{
+    background: var(--bg-raised);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 22px 24px;
+    margin-bottom: 20px;
+  }
+  .project:last-child{ margin-bottom: 0; }
+  .project-role{
+    font-size: 0.85rem;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .project h3{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.15rem;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .project p{ margin: 0 0 12px; color: var(--ink); }
+
+  /* --- skills grid --- */
+  .skills-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  @media (max-width: 560px){
+    .skills-grid{ grid-template-columns: 1fr; }
+  }
+  .skill-group h3{
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--teal);
+    margin: 0 0 10px;
+  }
+  .skill-group ul{
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .skill-group li{
+    padding: 5px 0;
+    border-bottom: 1px dotted var(--rule);
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+  .skill-group li:last-child{ border-bottom: none; }
+
+  .software-level{
+    float: right;
+    color: var(--ink-dim);
+    font-size: 0.85rem;
+  }
+
+  /* --- simple lists (equipment / activities / languages) --- */
+  .plain-list{
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+  }
+  .plain-list li{
+    background: var(--bg-raised);
+    border: 1px solid var(--rule);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    color: var(--ink);
+  }
+
+  /* --- awards --- */
+  .award{
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: baseline;
+  }
+  .award:last-child{ margin-bottom: 0; }
+  .award-year{
+    font-family: 'Fraunces', serif;
+    color: var(--amber);
+    font-weight: 500;
+    min-width: 52px;
+  }
+  .award-title{ color: var(--ink); font-weight: 500; }
+  .award-sub{ color: var(--ink-dim); font-size: 0.9rem; }
+
+  /* --- languages --- */
+  .lang-row{
+    display: flex;
+    justify-content: space-between;
+    max-width: 260px;
+    padding: 8px 0;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .lang-row:last-child{ border-bottom: none; }
+  .lang-level{ color: var(--ink-dim); }
+
+  footer{
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    font-size: 0.8rem;
+    color: var(--ink-dim);
+  }
+</style>
+</head>
+<body>
+
+<div class="sprocket-rail" aria-hidden="true"></div>
+
+<div class="page">
+
+  <header class="reveal">
+    <p class="name">Fais Lubsang</p>
+    <p class="role">Film · Video Production · Creative</p>
+    <div class="contact">
+      <span>📍 Bangkok, Thailand</span>
+      <span>📞 088 685 9735</span>
+      <span>✉️ faizzlubsang@gmail.com</span>
+      <span>🔗 <a href="#">YouTube Portfolio</a></span>
+    </div>
+  </header>
+
+  <section class="reveal" aria-labelledby="profile-heading">
+    <div class="section-head">
+      <h2 id="profile-heading">Profile</h2>
+    </div>
+    <p class="profile-text">
+      Film and Digital Film student with hands-on experience in film production, art direction, production management, and post-production. Experienced in short films, advertising projects, music videos, and film festival productions. Skilled at combining creative thinking with strong organizational and production abilities. Passionate about visual storytelling and developing projects from concept and pre-production through to post-production. Eager to learn, take on new challenges, and grow as a filmmaker and creative professional.
+    </p>
+  </section>
+
+  <section aria-labelledby="education-heading">
+    <div class="section-head">
+      <h2 id="education-heading">Education</h2>
+    </div>
+    <div class="entry">
+      <p class="entry-title">University of the Thai Chamber of Commerce</p>
+      <p class="entry-org">Communication Arts, Digital Film</p>
+      <p class="entry-meta">2025 – 2028</p>
+      <ul class="bullets">
+        <li>GPA: 3.45</li>
+        <li>1st Place, Indie/Art Film Competition</li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="experience-heading">
+    <div class="section-head">
+      <h2 id="experience-heading">Experience</h2>
+    </div>
+
+    <div class="entry">
+      <p class="entry-title">Production Manager</p>
+      <p class="entry-org">Believe Studio</p>
+      <p class="entry-meta">September 2025 – May 2026</p>
+      <ul class="bullets">
+        <li>Managed production planning, scheduling, and team coordination.</li>
+        <li>Contributed to the production of the "Rude Dog Sweater" advertising project.</li>
+        <li>Supported production and post-production workflows using Adobe Premiere Pro, Microsoft Word, and Adobe Photoshop.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <p class="entry-title">Art Director</p>
+      <p class="entry-org">Chiangmai Film Festival</p>
+      <p class="entry-meta">April 2026 – September 2026</p>
+      <ul class="bullets">
+        <li>Managed the visual direction and art design for production.</li>
+        <li>Designed, sourced, and prepared props for the film.</li>
+        <li>Worked on "Spiral Dream Core," a short film produced for the Chiangmai Film Festival.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="projects-heading">
+    <div class="section-head">
+      <h2 id="projects-heading">Selected Projects</h2>
+    </div>
+
+    <div class="project">
+      <p class="project-role">Role: Art Director</p>
+      <h3>Spiral Dream Core — Short Film</h3>
+      <p>A short film produced for the Chiangmai Film Festival. Responsible for developing the visual direction and supporting the film's artistic concept through set design, prop design, and visual development.</p>
+      <ul class="bullets">
+        <li>Developed and managed the film's visual direction.</li>
+        <li>Designed and created props to support the story and visual concept.</li>
+        <li>Collaborated with the production team to maintain visual consistency.</li>
+        <li>Used Adobe Illustrator and Adobe Photoshop for design development.</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <p class="project-role">Role: Editor</p>
+      <h3>Independent Music Video</h3>
+      <p>Edited an independent music video, shaping its visual rhythm and emotional tone through creative editing. Worked closely with the music and footage to create a cohesive visual narrative that supported the artist's identity and the song's atmosphere.</p>
+      <ul class="bullets">
+        <li>Organized footage and selected the strongest takes.</li>
+        <li>Refined pacing, transitions, and visual continuity.</li>
+        <li>Developed the final cut using Adobe Premiere Pro.</li>
+        <li>Managed the post-production process from footage organization to final export.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="skills-heading">
+    <div class="section-head">
+      <h2 id="skills-heading">Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Production</h3>
+        <ul>
+          <li>Directing</li>
+          <li>Producing</li>
+          <li>Assistant Directing</li>
+          <li>Co-Producing</li>
+          <li>Art Direction</li>
+          <li>Production Management</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Post-Production</h3>
+        <ul>
+          <li>Video Editing</li>
+          <li>Color Grading</li>
+          <li>Sound Design</li>
+          <li>Assistant Editing</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Software</h3>
+        <ul>
+          <li>Adobe Premiere Pro <span class="software-level">Professional</span></li>
+          <li>Adobe After Effects <span class="software-level">Intermediate</span></li>
+          <li>Adobe Photoshop <span class="software-level">Professional</span></li>
+          <li>Adobe Illustrator <span class="software-level">Intermediate</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="equipment-heading">
+    <div class="section-head">
+      <h2 id="equipment-heading">Equipment</h2>
+    </div>
+    <ul class="plain-list">
+      <li>Digital Cameras</li>
+      <li>Camera Steady Crane</li>
+      <li>Lighting Equipment</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="awards-heading">
+    <div class="section-head">
+      <h2 id="awards-heading">Awards &amp; Achievements</h2>
+    </div>
+    <div class="award">
+      <span class="award-year">2026</span>
+      <div>
+        <div class="award-title">Best Art Designer</div>
+        <div class="award-sub">Spiral Dream Core — Chiangmai Film Festival</div>
+      </div>
+    </div>
+    <div class="award">
+      <span class="award-year">2024</span>
+      <div>
+        <div class="award-title">Best Screenplay</div>
+        <div class="award-sub">Living Dog — Asia Film Festival</div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="activities-heading">
+    <div class="section-head">
+      <h2 id="activities-heading">Activities</h2>
+    </div>
+    <div class="entry">
+      <p class="entry-title">Project Manager</p>
+      <p class="entry-org">Workshop to Be Professional — Studio Daddy</p>
+      <p class="entry-meta">2025</p>
+      <ul class="bullets">
+        <li>Managed project coordination and supported workshop activities.</li>
+        <li>Coordinated tasks and assisted with the overall project workflow.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="languages-heading">
+    <div class="section-head">
+      <h2 id="languages-heading">Languages</h2>
+    </div>
+    <div class="lang-row">
+      <span>Thai</span>
+      <span class="lang-level">Native</span>
+    </div>
+    <div class="lang-row">
+      <span>English</span>
+      <span class="lang-level">Advanced</span>
+    </div>
+  </section>
+
+  <footer>
+    Fais Lubsang · Film / Video Production / Creative Portfolio
+  </footer>
+
+</div>
+
+</body>
+</html>
